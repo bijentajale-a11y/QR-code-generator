@@ -5,14 +5,14 @@ from qrcode.constants import ERROR_CORRECT_H
 data=input("Enter the text or URL:").strip()#To get rid of any extra spaces
 filename=input("Enter the file name:").strip()
 
+# User can choose color
 fill_color = input("QR color (default black): ").strip() or "black"
 back_color = input("Background color (default white): ").strip() or "white"
 
-if not filename.endswith(".png"):
+if not filename.endswith(".png"):#Extension add automatically
     filename += ".png"
 
-
-
+# Save in a folder automatically
 folder = "generated_qr"
 os.makedirs(folder, exist_ok=True)
 
