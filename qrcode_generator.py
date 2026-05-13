@@ -33,4 +33,5 @@ image.save(filepath)
 
 print(f"QR generated successfully as {filepath}.")
 
+#Open QR automatically
 os.startfile(filepath)
