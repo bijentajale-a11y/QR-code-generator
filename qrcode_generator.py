@@ -1,10 +1,36 @@
 import qrcode
+import os
+from qrcode.constants import ERROR_CORRECT_H
 
 data=input("Enter the text or URL:").strip()#To get rid of any extra spaces
 filename=input("Enter the file name:").strip()
 
-qr=qrcode.QRCode(box_size=10,border=4)
+fill_color = input("QR color (default black): ").strip() or "black"
+back_color = input("Background color (default white): ").strip() or "white"
+
+if not filename.endswith(".png"):
+    filename += ".png"
+
+
+
+folder = "generated_qr"
+os.makedirs(folder, exist_ok=True)
+
+filepath = os.path.join(folder, filename)
+
+qr = qrcode.QRCode(
+    version=1,
+    error_correction=ERROR_CORRECT_H,
+    box_size=10,
+    border=4,
+)
 qr.add_data(data)
-image=qr.make_image(fill_color='black',back_color='white')
-image.save(filename)
-print(f"QR generated successfully as {filename}.")
+qr.make(fit=True)
+
+image = qr.make_image(fill_color=fill_color, back_color=back_color)
+image.save(filepath)
+
+
+print(f"QR generated successfully as {filepath}.")
+
+os.startfile(filepath)
